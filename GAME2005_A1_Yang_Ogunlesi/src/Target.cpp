@@ -59,3 +59,7 @@ void Target::m_reset()
 {
 }
 
+void Target::doThrow() {
+	getTransform()->position = throwPosition;
+	getRigidBody()->velocity = throwSpeed;
+}
