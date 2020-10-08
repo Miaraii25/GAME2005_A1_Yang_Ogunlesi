@@ -17,13 +17,15 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
-	if(EventManager::Instance().isIMGUIActive())
-	{
-		GUI_Function();
-	}
+	TextureManager::Instance()->draw("background", 400, 300, 0, 255, true);
 
 	drawDisplayList();
 	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
+
+	if (EventManager::Instance().isIMGUIActive())
+	{
+		GUI_Function();
+	}
 }
 
 void PlayScene::update()
@@ -116,6 +118,9 @@ void PlayScene::handleEvents()
 
 void PlayScene::start()
 {
+	// Load background
+	TextureManager::Instance()->load("../Assets/textures/Background.png", "background");
+
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 	
@@ -186,13 +191,16 @@ void PlayScene::GUI_Function() const
 	
 	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	if(ImGui::Button("My Button"))
+	if(ImGui::Button("Throw"))
 	{
-		std::cout << "My Button Pressed" << std::endl;
+		std::cout << "Throw Pressed" << std::endl;
 	}
 
 	ImGui::Separator();
 
+	static bool isGravityEnabled = false;
+	ImGui::Checkbox("Gravity", &isGravityEnabled);
+	
 	static float float3[3] = { 0.0f, 1.0f, 1.5f };
 	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
 	{
@@ -202,7 +210,13 @@ void PlayScene::GUI_Function() const
 		std::cout << "---------------------------\n";
 	}
 	
+	static int xPlayerPos = 300;
+	if (ImGui::SliderInt("Player Position X", &xPlayerPos, 0, 800)) {
+		m_pPlayer->getTransform()->position.x = xPlayerPos;
+	}
+
 	ImGui::End();
+	ImGui::EndFrame();
 
 	// Don't Remove this
 	ImGui::Render();
