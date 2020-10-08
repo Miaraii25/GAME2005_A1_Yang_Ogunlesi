@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Button.h"
 #include "Label.h"
+#include "Background.h"
 
 class PlayScene : public Scene
 {
@@ -35,6 +36,10 @@ private:
 	Button* m_pBackButton;
 	Button* m_pNextButton;
 	Label* m_pInstructionsLabel;
+
+	// BK
+	Background* m_pBackground;
+
 };
 
 #endif /* defined (__PLAY_SCENE__) */
