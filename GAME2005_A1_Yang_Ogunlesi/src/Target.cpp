@@ -44,9 +44,14 @@ void Target::m_move()
 	float deltaTime = 1.0f / 60.0f;
 	glm::vec2 gravity = glm::vec2(0, 9.8f);
 	
-	getRigidBody()->velocity += (getRigidBody()->acceleration + gravity) * deltaTime;
+	//getRigidBody()->velocity += (getRigidBody()->acceleration + gravity) * deltaTime;
 
-	//if (!isGravityEnabled) getRigidBody()->velocity.y = 0;
+	if (isGravityEnabled) {
+		getRigidBody()->velocity += (getRigidBody()->acceleration + gravity) * deltaTime;
+	}
+	else {
+		getRigidBody()->acceleration* deltaTime;
+	} 
 
 	getTransform()->position += getRigidBody()->velocity * deltaTime;
 }
