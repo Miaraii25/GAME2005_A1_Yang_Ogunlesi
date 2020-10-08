@@ -123,15 +123,15 @@ void PlayScene::start()
 
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
-	
-	// Plane Sprite
-	m_pPlaneSprite = new Plane();
-	addChild(m_pPlaneSprite);
 
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 	m_playerFacingRight = true;
+
+	//Ball
+	m_pBall = new Target();
+	addChild(m_pBall);
 
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
@@ -189,31 +189,30 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Physics Control", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	if(ImGui::Button("Throw"))
-	{
-		std::cout << "Throw Pressed" << std::endl;
+	if (ImGui::Button("Throw")) {
+		m_pBall->doThrow();
 	}
 
 	ImGui::Separator();
 
 	static bool isGravityEnabled = false;
-	ImGui::Checkbox("Gravity", &isGravityEnabled);
-	
-	static float float3[3] = { 0.0f, 1.0f, 1.5f };
-	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
-	{
-		std::cout << float3[0] << std::endl;
-		std::cout << float3[1] << std::endl;
-		std::cout << float3[2] << std::endl;
-		std::cout << "---------------------------\n";
+	if (ImGui::Checkbox("Gravity", &isGravityEnabled)) {
+		m_pBall->isGravityEnabled = isGravityEnabled;
 	}
 	
 	static int xPlayerPos = 300;
 	if (ImGui::SliderInt("Player Position X", &xPlayerPos, 0, 800)) {
 		m_pPlayer->getTransform()->position.x = xPlayerPos;
+		m_pBall->throwPosition = glm::vec2(xPlayerPos, 300);
 	}
+
+	static float velocity[2] = { 0, 0 };
+	if (ImGui::SliderFloat2("Throw Speed", velocity, 0, 500)) {
+		m_pBall->throwSpeed = glm::vec2(velocity[0], -velocity[1]);
+	}
+
 
 	ImGui::End();
 	ImGui::EndFrame();
