@@ -45,26 +45,15 @@ void StartScene::handleEvents()
 
 void StartScene::start()
 {
-
-	// Background
-	m_pBackground = new Background("../Assets/backgrounds/startscene.png", "startscene-background", BACKGROUND, glm::vec2(12, 12), true);
-	addChild(m_pBackground);
-
-	const SDL_Color goldenred = { 218, 135, 62, 0 };
-
-	m_pStartLabel = new Label("START SCENE", "Dock51", 80, goldenred, glm::vec2(400.0f, 40.0f));
+	const SDL_Color blue = { 0, 0, 255, 255 };
+	m_pStartLabel = new Label("START SCENE", "Consolas", 80, blue, glm::vec2(400.0f, 40.0f));
 	m_pStartLabel->setParent(this);
 	addChild(m_pStartLabel);
 
-	m_pNameLabel = new Label("MINGKUN YANG (101235517)", "Consolas", 40, goldenred, glm::vec2(400.0f, 130.0f));
-	m_pNameLabel->setParent(this);
-	addChild(m_pNameLabel);
+	m_pInstructionsLabel = new Label("Press 1 to Play", "Consolas", 40, blue, glm::vec2(400.0f, 120.0f));
+	m_pInstructionsLabel->setParent(this);
+	addChild(m_pInstructionsLabel);
 
-	m_pNameLabel2 = new Label("MARIAM OGUNLESI (101285729)", "Consolas", 40, goldenred, glm::vec2(400.0f, 180.0f));
-	m_pNameLabel2->setParent(this);
-	addChild(m_pNameLabel2);
-
-	
 
 	m_pShip = new Ship();
 	m_pShip->getTransform()->position = glm::vec2(400.0f, 300.0f); 
