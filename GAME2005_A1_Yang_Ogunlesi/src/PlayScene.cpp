@@ -207,7 +207,7 @@ void PlayScene::GUI_Function() const
 	static int xPlayerPos = 300;
 	if (ImGui::SliderInt("Player Position X", &xPlayerPos, 0, 800)) {
 		m_pPlayer->getTransform()->position.x = xPlayerPos;
-		m_pBall->throwPosition = glm::vec2(xPlayerPos, 300);
+		m_pBall->throwPosition = glm::vec2(xPlayerPos, 435);
 	}
 	
 	static float velocity[2] = { 10, 10 };
