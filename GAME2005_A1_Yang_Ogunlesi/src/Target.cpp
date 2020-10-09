@@ -4,12 +4,12 @@
 
 Target::Target()
 {
-	TextureManager::Instance()->load("../Assets/textures/Circle.png","circle" );
+	TextureManager::Instance()->load("../Assets/textures/ball.png","ball" );
 
-	const auto size = TextureManager::Instance()->getTextureSize("circle");
+	const auto size = TextureManager::Instance()->getTextureSize("ball");
 	setWidth(size.x);
 	setHeight(size.y);
-	getTransform()->position = glm::vec2(100.0f, 100.0f);
+	getTransform()->position = glm::vec2(-400.0f, -435.0f);
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 
@@ -26,7 +26,7 @@ void Target::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the target
-	TextureManager::Instance()->draw("circle", x, y, 0, 255, true);
+	TextureManager::Instance()->draw("ball", x, y, 0, 255, true);
 }
 
 void Target::update()
@@ -42,7 +42,7 @@ void Target::clean()
 void Target::m_move()
 {
 	float deltaTime = 1.0f / 60.0f;
-	glm::vec2 gravity = glm::vec2(0, 9.8f);
+	glm::vec2 gravity = glm::vec2(0, 9.81f);
 	
 	//getRigidBody()->velocity += (getRigidBody()->acceleration + gravity) * deltaTime;
 

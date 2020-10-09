@@ -33,6 +33,8 @@ private:
 	Target* m_pBall;
 	Player* m_pPlayer;
 	bool m_playerFacingRight;
+	bool m_BallFacingRight;
+
 	bool* m_isGravityEnabled;
 
 	// UI Items
